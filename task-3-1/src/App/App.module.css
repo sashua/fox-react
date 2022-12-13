@@ -1,0 +1,8 @@
+.app {
+  display: flex;
+  flex-flow: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  padding: 48px;
+}
