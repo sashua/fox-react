@@ -1,0 +1,56 @@
+[
+  {
+    "id": "c37627f8-a795-5dd0-a95d-6dd610610bbb",
+    "title": "How to solve coding issues using ChatGPT",
+    "tags": ["chatgpt", "ai"],
+    "text": "The most direct way to avoid a side effect is to use a separate process. So how would you do that if the job is assigned to you? I will use the npm command. So let’s ask the omniscient again: This looks like a clean solution to me.",
+    "dateCreated": "2022-12-27",
+    "imageUrl": "https://res.cloudinary.com/daily-now/image/upload/f_auto,q_auto/v1/posts/1bdb371da47ba8bb2695a8b3f345041f",
+    "articleUrl": "https://dev.to/zenstack/how-to-solve-coding-issues-using-chatgpt-15dd"
+  },
+  {
+    "id": "f0dc93f8-85ba-5898-bd5b-76c7a72d02f8",
+    "title": "I stopped using Visual Studio Code",
+    "tags": ["devtools"],
+    "text": "WebStorm is a paid product compared to VSC, which is free. It runs projects without hesitation and has no issue refactoring a widely used import.",
+    "dateCreated": "2022-08-05",
+    "imageUrl": "https://res.cloudinary.com/daily-now/image/upload/f_auto,q_auto/v1/posts/52f843ff38d9405df72a9fd80cea7281",
+    "articleUrl": "https://h.daily-dev-tips.com/i-stopped-using-visual-studio-code"
+  },
+  {
+    "id": "ab0d44ab-97a2-54ec-82b6-5f93a47cafb0",
+    "title": "Ultimate Tools for Developers",
+    "tags": ["productivity", "devtools"],
+    "text": "Free and open-source code editor, Visual Studio Code is a great tool for developers. Google Fonts is a library of free licensed font families. Pinterest is a visual discovery tool that you can use to find ideas for all your projects and interests. Stack Overflow is a question and answer site for professional and enthusiast programmers.",
+    "dateCreated": "2022-12-19",
+    "imageUrl": "https://res.cloudinary.com/daily-now/image/upload/f_auto,q_auto/v1/posts/c0ec3e9f51d6caaa297b709ce74a0235",
+    "articleUrl": "https://dev.to/dostonnabotov/ultimate-tools-for-developers-2aj2"
+  },
+  {
+    "id": "25712808-caa2-5bab-98e1-fac226c3a299",
+    "title": "React - Best Practices",
+    "tags": ["react", "javascript"],
+    "text": "In JavaScript, you can adopt ES6 syntax to make your code cleaner. Don't Forget key Prop With map in JSX Always assign a unique value to the prop to every JSX element while mapping from an array. Use Ternary Operator instead of if/else if Statements makes your code bulky.",
+    "dateCreated": "2022-12-19",
+    "imageUrl": "https://res.cloudinary.com/daily-now/image/upload/f_auto,q_auto/v1/posts/1af27654420166257fcf4c6f13fb50ea",
+    "articleUrl": "https://dev.to/iambilalriaz/react-best-practices-ege"
+  },
+  {
+    "id": "7dbf3758-17f3-58e8-a4a0-b1662fa9a8b8",
+    "title": "Getting started with Vite",
+    "tags": ["webdev", "tools"],
+    "text": "Vite serves your code via native ES module imports during development and bundles it with Rollup for production. Vite is a lightning-fast cold server start and offers instant hot module replacement and true on-demand compilation. It is also highly extensible via its plugin API and JavaScript API with full typing support.",
+    "dateCreated": "2022-12-27",
+    "imageUrl": "https://res.cloudinary.com/daily-now/image/upload/f_auto,q_auto/v1/posts/5c514c2fee9d1c29caa99d375cd095cf",
+    "articleUrl": "https://blog.openreplay.com/getting-started-with-vite/"
+  },
+  {
+    "id": "27853cb6-69da-54b8-95a4-fa2653d64176",
+    "title": "API Development: Rest Vs GraphQL",
+    "tags": ["api", "graphql"],
+    "text": "A RESTful API is an application programming interface (API) that uses HTTP requests to GET, PUT, POST and DELETE data. With cloud use on the rise, APIs are emerging to expose web services. REST is a logical choice for building APIs that allow users to connect and interact with cloud services.",
+    "dateCreated": "2020-12-07",
+    "imageUrl": "https://res.cloudinary.com/daily-now/image/upload/f_auto,q_auto/v1/posts/061b5eab6a3e260479841ec65eaedebe",
+    "articleUrl": "https://medium.com/quick-code/api-development-rest-vs-graphql-c54c530b5dec"
+  }
+]
