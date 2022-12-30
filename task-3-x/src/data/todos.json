@@ -1,0 +1,26 @@
+[
+  {
+    "id": "062cd091-e602-556c-add0-f24772dd7295",
+    "text": "Walk my dog",
+    "dateCreated": "2022-12-23",
+    "isDone": true
+  },
+  {
+    "id": "66ae83a3-42d7-5554-8b32-de878a350697",
+    "text": "Finish 3.3 FoxmindEd task",
+    "dateCreated": "2022-12-23",
+    "isDone": false
+  },
+  {
+    "id": "4654db28-a41b-53c4-80f3-40be52d2053d",
+    "text": "Get flashlights from AliExpress",
+    "dateCreated": "2022-11-20",
+    "isDone": false
+  },
+  {
+    "id": "7edf11b3-bffe-57fb-a98d-52ae72d1255e",
+    "text": "Buy a new keyboard",
+    "dateCreated": "2022-12-15",
+    "isDone": false
+  }
+]

@@ -1,0 +1,46 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor",
+  "elements": [
+    {
+      "type": "text",
+      "version": 147,
+      "versionNonce": 1320654961,
+      "isDeleted": false,
+      "id": "uCQCa8iT99l_GdJRZmuCj",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 245.42803955078125,
+      "y": 102.83193969726562,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "width": 664,
+      "height": 100,
+      "seed": 558422365,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "boundElements": [],
+      "updated": 1671808508412,
+      "link": null,
+      "locked": false,
+      "fontSize": 16,
+      "fontFamily": 1,
+      "text": "Create a few components just with some mock data:\n- PostsList / TodoList / UserList / Navigation\n- Navigation - should be accessible on all pages\n- Using react-router-dom implement navigation between these components. \n- Fill the Navigation component with all needed links to navigate between the pages",
+      "baseline": 94,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "Create a few components just with some mock data:\n- PostsList / TodoList / UserList / Navigation\n- Navigation - should be accessible on all pages\n- Using react-router-dom implement navigation between these components. \n- Fill the Navigation component with all needed links to navigate between the pages"
+    }
+  ],
+  "appState": {
+    "gridSize": null,
+    "viewBackgroundColor": "#ffffff"
+  },
+  "files": {}
+}
