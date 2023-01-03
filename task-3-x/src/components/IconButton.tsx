@@ -3,7 +3,7 @@ import { IconType } from 'react-icons';
 interface Props {
   icon: IconType;
   className?: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export const IconButton: React.FC<Props> = ({
