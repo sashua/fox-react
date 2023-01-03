@@ -1,7 +1,7 @@
-import { Navigation } from 'components/Navigation';
 import { Outlet } from 'react-router-dom';
+import { Navigation } from './Navigation';
 
-export const Root: React.FC = () => {
+export const App: React.FC = () => {
   return (
     <>
       <header className="py-4">
@@ -9,7 +9,7 @@ export const Root: React.FC = () => {
           <Navigation />
         </div>
       </header>
-      <main className="flex-1 py-8 bg-light">
+      <main className="flex-grow flex py-8 bg-light">
         <div className="container">
           <Outlet />
         </div>
