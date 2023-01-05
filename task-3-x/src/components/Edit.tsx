@@ -15,7 +15,7 @@ export const Edit: React.FC<Props> = ({
   disabled,
   onChange,
 }) => {
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState(false);
   const input = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {

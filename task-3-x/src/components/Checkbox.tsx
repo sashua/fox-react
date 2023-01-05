@@ -4,14 +4,14 @@ import { AiOutlineCheck } from 'react-icons/ai';
 interface Props {
   checked: boolean;
   disabled?: boolean;
-  onChange?: (checked: boolean) => void;
+  onChange: (checked: boolean) => void;
 }
 
 export const Checkbox: React.FC<Props> = ({ checked, disabled, onChange }) => {
   const input = useRef<HTMLInputElement>(null);
 
   const handleChange = () => {
-    onChange?.(input.current?.checked ?? checked);
+    onChange(input.current?.checked ?? checked);
   };
 
   return (
