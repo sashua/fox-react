@@ -1,12 +1,14 @@
-import { App } from 'components/App';
-import { Posts } from 'features/posts';
-import { Todos } from 'features/todos';
-import { Users } from 'features/users';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import Modal from 'react-modal';
 import { store } from 'store';
+import { App } from 'components/App';
+import { Posts } from 'features/posts';
+import { Todos } from 'features/todos';
+import { Users } from 'features/users';
 import './main.css';
 
 const router = createBrowserRouter([
@@ -30,10 +32,13 @@ const router = createBrowserRouter([
   },
 ]);
 
+Modal.setAppElement('#root');
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
+    <Toaster />
   </React.StrictMode>
 );

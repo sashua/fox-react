@@ -1,6 +1,6 @@
+import { useGetUsersQuery } from 'store';
 import { ErrorPage } from 'components/ErrorPage';
 import { Loader } from 'components/Loader';
-import { useGetUsersQuery } from 'store';
 import { UserCard } from './UserCard';
 
 export const Users: React.FC = () => {

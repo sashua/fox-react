@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Posts, Todo, Todos, Users } from 'types';
+import { Post, Posts, Todo, Todos, Users } from 'types';
 import { getRandomAvatar, getRandomPicture } from 'utils/images';
 
 export const placeholderApi = createApi({
@@ -18,6 +18,29 @@ export const placeholderApi = createApi({
             ...post,
             image: getRandomPicture(post.id),
           })),
+      }),
+
+      addPost: builder.mutation<Post, Omit<Post, 'id'>>({
+        query: newPost => ({
+          url: 'posts',
+          method: 'POST',
+          body: newPost,
+        }),
+        onQueryStarted: (_, { dispatch, queryFulfilled }) => {
+          // perform an pessimistic cache update
+          queryFulfilled.then(({ data: newPost }) => {
+            dispatch(
+              placeholderApi.util.updateQueryData(
+                'getPosts',
+                undefined,
+                draftPosts => [
+                  { ...newPost, image: getRandomPicture(newPost.id) },
+                  ...draftPosts,
+                ]
+              )
+            );
+          });
+        },
       }),
 
       // ---- Todos endpoints ----
@@ -80,6 +103,7 @@ export const placeholderApi = createApi({
 
 export const {
   useGetPostsQuery,
+  useAddPostMutation,
   useGetTodosQuery,
   useUpdateTodoMutation,
   useDeleteTodoMutation,

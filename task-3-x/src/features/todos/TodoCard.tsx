@@ -1,9 +1,9 @@
+import { AiOutlineDelete } from 'react-icons/ai';
+import { Todo } from 'types';
+import { useDeleteTodoMutation, useUpdateTodoMutation } from 'store';
 import { Checkbox } from 'components/Checkbox';
 import { Edit } from 'components/Edit';
 import { IconButton } from 'components/IconButton';
-import { AiOutlineDelete } from 'react-icons/ai';
-import { useDeleteTodoMutation, useUpdateTodoMutation } from 'store';
-import { Todo } from 'types';
 
 interface Props {
   todo: Todo;
