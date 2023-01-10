@@ -4,12 +4,12 @@ import { useGetPostsQuery } from 'store';
 import { PostCard } from './PostCard';
 
 export const Posts: React.FC = () => {
-  const { data, error, isLoading } = useGetPostsQuery();
+  const { data, isLoading, isError } = useGetPostsQuery();
 
   if (isLoading) {
     return <Loader />;
   }
-  if (error) {
+  if (isError) {
     return <ErrorPage />;
   }
 

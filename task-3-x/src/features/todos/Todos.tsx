@@ -4,12 +4,12 @@ import { useGetTodosQuery } from 'store';
 import { TodoCard } from './TodoCard';
 
 export const Todos: React.FC = () => {
-  const { data, error, isLoading } = useGetTodosQuery();
+  const { data, isLoading, isError } = useGetTodosQuery();
 
   if (isLoading) {
     return <Loader />;
   }
-  if (error) {
+  if (isError) {
     return <ErrorPage />;
   }
 

@@ -4,12 +4,12 @@ import { useGetUsersQuery } from 'store';
 import { UserCard } from './UserCard';
 
 export const Users: React.FC = () => {
-  const { data, error, isLoading } = useGetUsersQuery();
+  const { data, isLoading, isError } = useGetUsersQuery();
 
   if (isLoading) {
     return <Loader />;
   }
-  if (error) {
+  if (isError) {
     return <ErrorPage />;
   }
 
