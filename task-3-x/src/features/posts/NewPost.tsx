@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import Select from 'react-select';
 import toast from 'react-hot-toast';
 import { useAddPostMutation, useGetUsersQuery } from 'store';
@@ -15,13 +17,21 @@ interface FormData {
   body: string;
 }
 
+const schema = yup.object({
+  selectedUser: yup.object().required('Author is required'),
+  title: yup
+    .string()
+    .min(8, 'Title must contain at least eight characters')
+    .required('Title is required'),
+});
+
 export const NewPost: React.FC<Props> = ({ onClose }) => {
   const {
     register,
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormData>({ resolver: yupResolver(schema) });
   const [
     triggerAdd,
     { isLoading: isAdding, isSuccess: isAddSuccess, isError: isAddError },
@@ -70,7 +80,6 @@ export const NewPost: React.FC<Props> = ({ onClose }) => {
         <Controller
           name="selectedUser"
           control={control}
-          rules={{ required: true }}
           render={({ field }) => (
             <Select
               classNames={{
@@ -101,9 +110,7 @@ export const NewPost: React.FC<Props> = ({ onClose }) => {
             />
           )}
         />
-        {errors.selectedUser && (
-          <p className="text-sm text-alert">Author is required</p>
-        )}
+        <p className="text-sm text-alert">{errors.selectedUser?.message}</p>
       </label>
 
       <label>
@@ -111,13 +118,11 @@ export const NewPost: React.FC<Props> = ({ onClose }) => {
         <input
           className="w-full p-2 bg-light border border-transparent rounded-lg outline-0
         focus:border-accent"
-          {...register('title', { required: true })}
+          {...register('title')}
           type="text"
           disabled={isAdding}
         />
-        {errors.title && (
-          <p className="text-sm text-alert">Title is required</p>
-        )}
+        <p className="text-sm text-alert">{errors.title?.message}</p>
       </label>
 
       <label>
