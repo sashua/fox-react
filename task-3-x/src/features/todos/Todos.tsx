@@ -1,6 +1,6 @@
+import { useGetTodosQuery } from 'store';
 import { ErrorPage } from 'components/ErrorPage';
 import { Loader } from 'components/Loader';
-import { useGetTodosQuery } from 'store';
 import { TodoCard } from './TodoCard';
 
 export const Todos: React.FC = () => {
