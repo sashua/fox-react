@@ -1,12 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Post, Posts, Todo, Todos, Users } from 'types';
+import { Post, Posts, Todo, Todos, User, Users } from 'types';
 import { getRandomAvatar, getRandomPicture } from 'utils/images';
+
+type TagType = 'Post' | 'Todo' | 'User';
 
 export const placeholderApi = createApi({
   reducerPath: 'placeholderApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://jsonplaceholder.typicode.com',
   }),
+  tagTypes: ['Post', 'Todo', 'Users'] as TagType[],
 
   endpoints: builder => {
     return {
@@ -18,6 +21,7 @@ export const placeholderApi = createApi({
             ...post,
             image: getRandomPicture(post.id),
           })),
+        providesTags: ['Post'],
       }),
 
       addPost: builder.mutation<Post, Omit<Post, 'id'>>({
@@ -43,9 +47,10 @@ export const placeholderApi = createApi({
         },
       }),
 
-      // ---- Todos endpoints ----
+      // --- Todos endpoints ---
       getTodos: builder.query<Todos, void>({
         query: () => 'todos',
+        providesTags: ['Todo'],
       }),
 
       updateTodo: builder.mutation<Todo, Partial<Todo> & Pick<Todo, 'id'>>({
@@ -96,6 +101,20 @@ export const placeholderApi = createApi({
             ...user,
             avatar: getRandomAvatar(user.id),
           })),
+        providesTags: result =>
+          result
+            ? result.map(user => ({ type: 'User' as const, id: user.id }))
+            : ['User'],
+      }),
+
+      getUser: builder.query<User, User['id']>({
+        query: id => `users/${id}`,
+        transformResponse: (user: User) => ({
+          ...user,
+          avatar: getRandomAvatar(user.id),
+        }),
+        providesTags: result =>
+          result ? [{ type: 'User' as const, id: result.id }] : ['User'],
       }),
     };
   },
@@ -108,4 +127,5 @@ export const {
   useUpdateTodoMutation,
   useDeleteTodoMutation,
   useGetUsersQuery,
+  useGetUserQuery,
 } = placeholderApi;
