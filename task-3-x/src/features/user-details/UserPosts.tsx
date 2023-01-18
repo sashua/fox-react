@@ -1,11 +1,12 @@
-import { useGetPostsQuery } from 'store';
+import { useParams } from 'react-router-dom';
+import { useGetUserPostsQuery } from 'store';
 import { ErrorPage } from 'components/ErrorPage';
 import { Loader } from 'components/Loader';
-import { PostCard } from './PostCard';
-import { NewPost } from './NewPost';
+import { PostCard, NewPost } from 'features/posts';
 
-export const Posts: React.FC = () => {
-  const { data, isLoading, isError } = useGetPostsQuery();
+export const UserPosts: React.FC = () => {
+  const { id } = useParams();
+  const { data, isLoading, isError } = useGetUserPostsQuery(Number(id));
 
   if (isLoading) {
     return <Loader />;
@@ -16,7 +17,7 @@ export const Posts: React.FC = () => {
 
   return (
     <>
-      <NewPost className="mb-6" />
+      <NewPost className="mb-6" selectedUserId={Number(id)} />
 
       <ul
         className="grid grid-cols-1 gap-8
@@ -24,10 +25,7 @@ export const Posts: React.FC = () => {
         lg:grid-cols-3"
       >
         {data?.map(post => (
-          <li
-            key={post.id}
-            className="bg-white overflow-hidden rounded-xl shadow-md"
-          >
+          <li key={post.id} className="border rounded-xl">
             <PostCard post={post} />
           </li>
         ))}

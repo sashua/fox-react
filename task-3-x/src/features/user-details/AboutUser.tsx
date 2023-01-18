@@ -1,21 +1,18 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import {
   AiOutlineMail,
   AiOutlinePhone,
   AiOutlineEnvironment,
   AiOutlineCluster,
-  AiOutlineCloseCircle,
 } from 'react-icons/ai';
 import { useGetUserQuery } from 'store';
 import { ErrorPage } from 'components/ErrorPage';
 import { Info } from 'components/Info';
 import { Loader } from 'components/Loader';
 import { Avatar } from 'components/Avatar';
-import { IconButton } from 'components/IconButton';
 
-export const UserDetails: React.FC = () => {
+export const AboutUser: React.FC = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const { data, isLoading, isError } = useGetUserQuery(Number(id));
 
   if (isLoading) {
@@ -24,10 +21,6 @@ export const UserDetails: React.FC = () => {
   if (isError || !data) {
     return <ErrorPage />;
   }
-
-  const handleClose = () => {
-    navigate('/users');
-  };
 
   const {
     name,
@@ -40,17 +33,10 @@ export const UserDetails: React.FC = () => {
   } = data;
 
   return (
-    <div className="relative flex items-center gap-32 w-fit mx-auto px-16 pt-12 pb-8 bg-white rounded-xl shadow-md">
-      <IconButton
-        className="absolute top-4 right-4 text-middle hover:text-accent"
-        icon={AiOutlineCloseCircle}
-        size={28}
-        onClick={handleClose}
-      />
-
+    <div className="flex items-center gap-32 w-fit mx-auto">
       <div className="text-center">
         <Avatar className="mb-4" src={avatar} alt={name} size={256} />
-        <h3 className="mb-2 font-semibold text-2xl">{name}</h3>
+        <h4 className="mb-2 font-semibold text-2xl">{name}</h4>
         <p className="text-lg text-middle">"{username}"</p>
       </div>
 

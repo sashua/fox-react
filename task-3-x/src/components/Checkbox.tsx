@@ -7,7 +7,11 @@ interface Props {
   onChange: (checked: boolean) => void;
 }
 
-export const Checkbox: React.FC<Props> = ({ checked, disabled, onChange }) => {
+export const Checkbox: React.FC<Props> = ({
+  checked,
+  disabled = false,
+  onChange,
+}) => {
   const input = useRef<HTMLInputElement>(null);
 
   const handleChange = () => {
