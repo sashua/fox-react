@@ -10,29 +10,26 @@ interface Props {
 }
 
 export const TodoCard: React.FC<Props> = ({
-  todo: { id, title, completed },
+  todo: { id, userId, title, completed },
 }) => {
   const [triggerUpdate, { isLoading: isUpdating }] = useUpdateTodoMutation();
   const [triggerDelete, { isLoading: isDeleting }] = useDeleteTodoMutation();
 
   const handleEditTodo = (title: string) => {
-    triggerUpdate({ id, title });
+    triggerUpdate({ id, userId, title });
   };
 
   const handleToggleTodo = () => {
-    triggerUpdate({ id, completed: !completed });
+    triggerUpdate({ id, userId, completed: !completed });
   };
   const handleDeleteTodo = () => {
-    triggerDelete(id);
+    triggerDelete({ id, userId });
   };
 
   const isDisabled = isUpdating || isDeleting;
 
   return (
-    <li
-      className="flex items-center gap-4 px-4 py-2 border rounded-xl "
-      data-id={id}
-    >
+    <div className="flex items-center gap-4">
       <Checkbox
         checked={completed}
         disabled={isDisabled}
@@ -50,6 +47,6 @@ export const TodoCard: React.FC<Props> = ({
         disabled={isDisabled}
         onClick={handleDeleteTodo}
       />
-    </li>
+    </div>
   );
 };

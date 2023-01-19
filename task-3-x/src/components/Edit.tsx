@@ -11,8 +11,8 @@ interface Props {
 
 export const Edit: React.FC<Props> = ({
   className = '',
-  defaultValue,
-  disabled,
+  defaultValue = '',
+  disabled = false,
   onChange,
 }) => {
   const [isEditing, setIsEditing] = useState(false);

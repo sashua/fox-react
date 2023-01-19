@@ -8,7 +8,14 @@ import { store } from 'store';
 import { App } from 'components/App';
 import { Posts } from 'features/posts';
 import { Todos } from 'features/todos';
-import { UserDetails, Users } from 'features/users';
+import { Users } from 'features/users';
+import {
+  UserDetails,
+  AboutUser,
+  UserAlbums,
+  UserPosts,
+  UserTodos,
+} from 'features/user-details';
 import './main.css';
 
 const router = createBrowserRouter([
@@ -31,6 +38,24 @@ const router = createBrowserRouter([
       {
         path: 'users/:id',
         element: <UserDetails />,
+        children: [
+          {
+            index: true,
+            element: <AboutUser />,
+          },
+          {
+            path: 'albums',
+            element: <UserAlbums />,
+          },
+          {
+            path: 'todos',
+            element: <UserTodos />,
+          },
+          {
+            path: 'posts',
+            element: <UserPosts />,
+          },
+        ],
       },
     ],
   },

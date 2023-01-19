@@ -1,3 +1,10 @@
+export interface Album {
+  id: number;
+  userId: number;
+  title: string;
+  image?: string;
+}
+
 export interface Post {
   id: number;
   userId: number;
@@ -38,6 +45,7 @@ export interface User {
   avatar?: string;
 }
 
+export type Albums = Album[];
 export type Posts = Post[];
 export type Todos = Todo[];
 export type Users = User[];

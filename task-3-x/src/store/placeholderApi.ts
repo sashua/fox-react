@@ -1,27 +1,42 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Post, Posts, Todo, Todos, User, Users } from 'types';
+import { Albums, Post, Posts, Todo, Todos, User, Users } from 'types';
 import { getRandomAvatar, getRandomPicture } from 'utils/images';
-
-type TagType = 'Post' | 'Todo' | 'User';
 
 export const placeholderApi = createApi({
   reducerPath: 'placeholderApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://jsonplaceholder.typicode.com',
   }),
-  tagTypes: ['Post', 'Todo', 'Users'] as TagType[],
 
   endpoints: builder => {
     return {
+      // ---- Albums endpoints ----
+      getUserAlbums: builder.query<Albums, User['id']>({
+        query: id => `users/${id}/albums`,
+        transformResponse: (albums: Albums) =>
+          albums.map(album => ({
+            ...album,
+            image: getRandomPicture(album.title),
+          })),
+      }),
+
       // ---- Posts endpoints ----
       getPosts: builder.query<Posts, void>({
         query: () => 'posts',
         transformResponse: (posts: Posts) =>
           posts.map(post => ({
             ...post,
-            image: getRandomPicture(post.id),
+            image: getRandomPicture(post.title),
           })),
-        providesTags: ['Post'],
+      }),
+
+      getUserPosts: builder.query<Posts, User['id']>({
+        query: id => `users/${id}/posts`,
+        transformResponse: (posts: Posts) =>
+          posts.map(post => ({
+            ...post,
+            image: getRandomPicture(post.title),
+          })),
       }),
 
       addPost: builder.mutation<Post, Omit<Post, 'id'>>({
@@ -38,7 +53,17 @@ export const placeholderApi = createApi({
                 'getPosts',
                 undefined,
                 draftPosts => [
-                  { ...newPost, image: getRandomPicture(newPost.id) },
+                  { ...newPost, image: getRandomPicture(newPost.title) },
+                  ...draftPosts,
+                ]
+              )
+            );
+            dispatch(
+              placeholderApi.util.updateQueryData(
+                'getUserPosts',
+                newPost.userId,
+                draftPosts => [
+                  { ...newPost, image: getRandomPicture(newPost.title) },
                   ...draftPosts,
                 ]
               )
@@ -50,18 +75,27 @@ export const placeholderApi = createApi({
       // --- Todos endpoints ---
       getTodos: builder.query<Todos, void>({
         query: () => 'todos',
-        providesTags: ['Todo'],
       }),
 
-      updateTodo: builder.mutation<Todo, Partial<Todo> & Pick<Todo, 'id'>>({
-        query: ({ id, ...patch }) => ({
+      getUserTodos: builder.query<Todos, User['id']>({
+        query: id => `users/${id}/todos`,
+      }),
+
+      updateTodo: builder.mutation<
+        Todo,
+        Partial<Todo> & Pick<Todo, 'id' | 'userId'>
+      >({
+        query: ({ id, userId, ...patch }) => ({
           url: `todos/${id}`,
           method: 'PATCH',
           body: patch,
         }),
-        onQueryStarted: ({ id, ...patch }, { dispatch, queryFulfilled }) => {
+        onQueryStarted: (
+          { id, userId, ...patch },
+          { dispatch, queryFulfilled }
+        ) => {
           // perform an optimistic cache update
-          const patchResult = dispatch(
+          const patchAllResult = dispatch(
             placeholderApi.util.updateQueryData(
               'getTodos',
               undefined,
@@ -71,25 +105,48 @@ export const placeholderApi = createApi({
                 )
             )
           );
-          queryFulfilled.catch(patchResult.undo);
+          const patchUserResult = dispatch(
+            placeholderApi.util.updateQueryData(
+              'getUserTodos',
+              userId,
+              draftTodos =>
+                draftTodos.map(todo =>
+                  todo.id === id ? { ...todo, ...patch } : todo
+                )
+            )
+          );
+          queryFulfilled.catch(() => {
+            patchAllResult.undo();
+            patchUserResult.undo();
+          });
         },
       }),
 
-      deleteTodo: builder.mutation<Todo, Todo['id']>({
-        query: id => ({
+      deleteTodo: builder.mutation<Todo, Pick<Todo, 'id' | 'userId'>>({
+        query: ({ id }) => ({
           url: `todos/${id}`,
           method: 'DELETE',
         }),
-        onQueryStarted: (id, { dispatch, queryFulfilled }) => {
+        onQueryStarted: ({ id, userId }, { dispatch, queryFulfilled }) => {
           // perform an optimistic cache update
-          const patchResult = dispatch(
+          const patchAllResult = dispatch(
             placeholderApi.util.updateQueryData(
               'getTodos',
               undefined,
               draftTodos => draftTodos.filter(todo => todo.id !== id)
             )
           );
-          queryFulfilled.catch(patchResult.undo);
+          const patchUserResult = dispatch(
+            placeholderApi.util.updateQueryData(
+              'getUserTodos',
+              userId,
+              draftTodos => draftTodos.filter(todo => todo.id !== id)
+            )
+          );
+          queryFulfilled.catch(() => {
+            patchAllResult.undo();
+            patchUserResult.undo();
+          });
         },
       }),
 
@@ -101,10 +158,6 @@ export const placeholderApi = createApi({
             ...user,
             avatar: getRandomAvatar(user.id),
           })),
-        providesTags: result =>
-          result
-            ? result.map(user => ({ type: 'User' as const, id: user.id }))
-            : ['User'],
       }),
 
       getUser: builder.query<User, User['id']>({
@@ -113,8 +166,6 @@ export const placeholderApi = createApi({
           ...user,
           avatar: getRandomAvatar(user.id),
         }),
-        providesTags: result =>
-          result ? [{ type: 'User' as const, id: result.id }] : ['User'],
       }),
     };
   },
@@ -128,4 +179,7 @@ export const {
   useDeleteTodoMutation,
   useGetUsersQuery,
   useGetUserQuery,
+  useGetUserAlbumsQuery,
+  useGetUserPostsQuery,
+  useGetUserTodosQuery,
 } = placeholderApi;
